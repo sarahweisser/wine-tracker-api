@@ -15,23 +15,14 @@ public class UserService {
     @Autowired
     UserJpaRepository userJpaRepository;
 
-//    public UserService() {}
-
-//    public UserService(UserJpaRepository userJpaRepository) {
-//        this.userJpaRepository = userJpaRepository;
-//    }
-
     public User processUserLogin(User user) {
         System.out.println("In processUserLogin");
 
         // TODO validate input
-        //System.out.println(user.getUserName());
         Optional<User> existingUser = userJpaRepository.findUsersByUserName(user.getUserName());
-
         if (existingUser.isPresent()) {
             System.out.println(existingUser.get().getUserPassword());
             if (existingUser.get().getUserPassword().equals(user.getUserPassword())) {
-
                 return user;
             } else throw new PasswordFailureException();
         } else throw new UserNotFoundException();
