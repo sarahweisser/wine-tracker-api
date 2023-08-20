@@ -62,7 +62,8 @@ public class UserServiceImpl implements UserService {
         } else throw new UserNotFoundException();
     }
 
-    public void deleteById(Long id) {
+    @Override
+    public void deleteUserById(Long id) {
         userJpaRepository.deleteById(id);
     }
 }
