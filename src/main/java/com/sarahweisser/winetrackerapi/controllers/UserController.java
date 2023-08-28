@@ -58,6 +58,13 @@ public class UserController {
     ResponseEntity<User> updateUser(@RequestBody User user) {
         Optional<User> existingUser = userServiceImpl.findUserById(user.getUserId());
         if (existingUser.isPresent()) {
+            try {
+                userServiceImpl.updateUser(user);
+            } catch (UserNotFoundException unfe) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionMessages.USER_NOT_FOUND);
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.SEE_OTHER, ExceptionMessages.MISC_ERROR);
+            }
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
@@ -66,6 +73,6 @@ public class UserController {
 
     @DeleteMapping("/users/{id}")
     void deleteById(@PathVariable Long id) {
-        userServiceImpl.deleteById(id);
+        userServiceImpl.deleteUserById(id);
     }
 }

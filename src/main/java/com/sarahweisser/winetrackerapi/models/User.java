@@ -13,9 +13,8 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
-    // TODO add unique constraint
     @NotBlank
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     private String userName;
     @NotBlank
     @Column(name = "user_password")

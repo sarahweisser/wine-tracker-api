@@ -36,16 +36,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User userToUpdate) throws Exception {
-        try {
-            Optional<User> existingUser = userJpaRepository.findById(userToUpdate.getUserId());
-            if (existingUser.isPresent()) {
-                return userJpaRepository.saveAndFlush(userToUpdate);
-            } else {
-                throw new UserNotFoundException();
-            }
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
+    public User updateUser(User userToUpdate) {
+        Optional<User> existingUser = userJpaRepository.findById(userToUpdate.getUserId());
+        if (existingUser.isPresent()) {
+            return userJpaRepository.saveAndFlush(userToUpdate);
+        } else {
+            throw new UserNotFoundException();
         }
     }
 
