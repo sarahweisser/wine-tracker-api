@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         if (existingUser.isPresent()) {
             System.out.println(existingUser.get().getUserPassword());
             if (existingUser.get().getUserPassword().equals(user.getUserPassword())) {
-                return user;
+                return existingUser.get();
             } else throw new PasswordFailureException();
         } else throw new UserNotFoundException();
     }
